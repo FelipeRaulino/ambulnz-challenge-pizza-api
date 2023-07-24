@@ -1,0 +1,25 @@
+version: '3.0'
+
+services:
+  ambulnz_db:
+    container_name: ambulnz_db
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_DB=ambulnz_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret123
+    ports:
+      - 5432:5432
+  
+  ambulnz_pizza_api:
+    container_name: ambulnz_pizza_api
+    build: ./
+    ports: 
+      - 3333:3333
+    depends_on:
+      - ambulnz_db
+
+volumes:
+  ambulnz_db:
+    driver: local
